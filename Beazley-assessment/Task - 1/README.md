@@ -25,6 +25,9 @@ Azure Three tier architecture. The following components are used. Network module
          │  PostgreSQL Flexible Server│  ← DB Tier (Private Endpoint)
          └────────────────────────────┘
 
+```
+
+
 ## Module	Purpose
 - network	VNet, subnets, and NSG configuration
 - aks	    Deploys Azure Kubernetes Service
