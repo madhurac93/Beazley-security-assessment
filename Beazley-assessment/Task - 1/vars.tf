@@ -17,6 +17,9 @@ variable "vnet_name" {
   type = string
 }
 
+variable "vnet_id" {
+  type = string
+}
 variable "vnet_address_space" {
   type = list(string)
 }
@@ -89,10 +92,14 @@ variable "db_name" {
   type = string
 }
 
-variable "db_admin_username" {
+variable "administrator_login" {
   type = string
 }
 
+variable "administrator_login_password" {
+  type      = string
+  sensitive = true
+}
 variable "db_version" {
   type    = string
   default = "13"
@@ -112,6 +119,9 @@ variable "db_zone" {
   type    = string
   default = "1"
 }
+variable "db_server_name" {
+  type = string
+}
 
 ## Frontdoor
 variable "fd_profile_name" {
@@ -127,4 +137,13 @@ variable "fd_endpoint_name" {
 variable "fd_sku_name" {
   type    = string
   default = "Standard_AzureFrontDoor"
+}
+variable "kv_name" {
+  type        = string
+  description = "Name of the Azure Key Vault"
+}
+
+variable "db_password" {
+  type      = string
+  sensitive = true
 }
