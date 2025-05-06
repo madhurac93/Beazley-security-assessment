@@ -1,7 +1,7 @@
 Metadata is read from: http://169.254.169.254/metadata/instance
 
 
-##RUN
+## RUN
 python3 main.py 
 or
 python main.py --key compute/name 
