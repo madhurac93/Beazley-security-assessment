@@ -29,11 +29,11 @@ Azure Three tier architecture. The following components are used. Network module
 
 
 ## Module	Purpose
-- network	VNet, subnets, and NSG configuration
+- network	    VNet, subnets, and NSG configuration
 - aks	    Deploys Azure Kubernetes Service
 - db	    PostgreSQL with private networking
-- keyvault	Secrets storage 
-- frontdoor	Public ingress with CDN/WAF options
+- keyvault    Secrets storage 
+- frontdoor   Public ingress with CDN/WAF options
 
 
 🚀 Getting Started
