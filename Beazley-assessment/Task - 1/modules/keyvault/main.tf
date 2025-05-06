@@ -6,9 +6,6 @@ resource "azurerm_key_vault" "kv" {
   resource_group_name         = var.resource_group_name
   tenant_id                   = data.azurerm_client_config.current.tenant_id
   sku_name                    = "standard"
-
-  soft_delete_enabled         = true
-  purge_protection_enabled    = true
   public_network_access_enabled = false
 
   access_policy {
@@ -25,6 +22,7 @@ resource "azurerm_key_vault" "kv" {
 
   tags = var.tags
 }
+
 
 resource "azurerm_key_vault_secret" "db_password" {
   name         = var.secret_name

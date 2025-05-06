@@ -5,8 +5,12 @@ variable "resource_group_name" {
 variable "location" {
   type = string
 }
+variable "kv_name" {
+  type        = string
+  description = "Name of the Azure Key Vault"
+}
 
-variable "postgres_password" {
+variable "db_password" {
   type      = string
   sensitive = true
 }
