@@ -1,0 +1,9 @@
+output "kube_config" {
+  value = azurerm_kubernetes_cluster.aks.kube_config[0]
+  sensitive = true
+}
+
+output "ingress_hostname" {
+  value = "your-ingress-app.example.com" 
+}
+
