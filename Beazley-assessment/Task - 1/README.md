@@ -51,6 +51,8 @@ Backend storage account (if using remote state)
 Update terraform.tfvars with your values
 
 ## Run terraform
+```
 terraform init
 terraform plan -var-file="terraform.tfvars"
 terraform apply -var-file="terraform.tfvars"
+```
