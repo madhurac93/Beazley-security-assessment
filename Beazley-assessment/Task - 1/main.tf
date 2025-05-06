@@ -5,6 +5,15 @@ provider "azurerm" {
 
 data "azurerm_client_config" "current" {}
 
+data "azurerm_key_vault_secret" "db_password" {
+  name         = var.secret_name
+  key_vault_id = module.keyvault.kv_id
+}
+
+resource "azurerm_resource_group" "main" {
+  name     = var.resource_group_name
+  location = var.location
+}
 ### VNet module
 module "network" {
   source                = "./modules/network"
@@ -24,12 +33,13 @@ module "network" {
 ## Key vault module
 module "keyvault" {
   source              = "./modules/keyvault"
-  resource_group_name = var.resource_group_name
+  kv_name             = var.kv_name
   location            = var.location
-  postgres_password   = var.postgres_password
-  kv_name_prefix      = var.kv_name_prefix
+  resource_group_name = var.resource_group_name
   secret_name         = var.secret_name
   tags                = var.tags
+  db_password         = var.db_password
+  
 }
 
 ## AKS cluster module
@@ -50,22 +60,18 @@ module "db" {
   source              = "./modules/db"
   resource_group_name = var.resource_group_name
   location            = var.location
-  db_name             = var.db_name
-  admin_username      = var.db_admin_username
-  key_vault_name      = module.keyvault.kv_name
-  secret_name         = var.secret_name
-  db_version          = var.db_version
-  sku_name            = var.db_sku_name
-  storage_mb          = var.db_storage_mb
-  zone                = var.db_zone
-  subnet_id           = module.network.db_subnet_id
+  vnet_id                   = var.vnet_id
+  vnet_name                  = var.vnet_name
+  db_server_name                = var.db_server_name   
+  administrator_login      = var.administrator_login
+  administrator_login_password = data.azurerm_key_vault_secret.db_password.value
+  db_subnet_id = module.network.db_subnet_id       
   tags                = var.tags
 }
 ## Frontdoor
 module "frontdoor" {
   source              = "./modules/frontdoor"
   resource_group_name = var.resource_group_name
-  location            = var.location
   backend_hostname    = module.aks.ingress_hostname
   profile_name        = var.fd_profile_name
   endpoint_name       = var.fd_endpoint_name
